@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: buildpacks-test-pipeline-run-
+spec:
+  pipelineRef:
+    name: buildpacks-test-pipeline
+  workspaces:
+    - name: maven-settings
+      emptyDir: {}
+    - name: source-workspace
+      subPath: source
+      persistentVolumeClaim:
+        claimName: source-pvc
+  params:
+    - name: SOURCE_URL
+      value: https://github.com/devopshydclub/vprofile-project.git
+    - name: SOURCE_REVISION
+      value: ""

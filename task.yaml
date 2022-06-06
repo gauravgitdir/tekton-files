@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+ name: maven
+spec:
+ steps:
+   - name: maven-build
+     image: vprofile/vprofileapp:V1
+     command:
+       - mvn
+     args:
+       - clean
+       - package
+       - -Dquarkus.container-image.push=true
+     workingDir: "/workspace/source/"
